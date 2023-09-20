@@ -1,0 +1,37 @@
+<div class="card-body">
+    <div class="card text-center border-0 p-2 bg-transparent">
+        <div class="card-header d-flex align-items-center justify-content-between cardStyle-properties">
+            <div style="font-size: 20px;letter-spacing: 1px; font-weight: bold;">Country Fuel Capacities</div>
+            <div class="d-flex align-items-center width50">
+                <div class="pe-2 d-flex align-items-center width33">
+                    <span class="colorWhite fontSize14 d-flex pr-2" style="min-width: 27%;">Region : </span>
+                    <select class="form-select" aria-label="Default select example" (change)="onChangeRegion($event)">
+                        <option [value]="region" *ngFor="let region of allRegions">{{region}}</option>
+                    </select>
+                </div>
+                <div class="d-flex align-items-center width33">
+                    <span class="colorWhite d-flex minWidth20 fontSize14">City : </span>
+                    <select class="form-select" aria-label="Default select example" (change)="onChangeCity($event)">
+                        <option [value]="city" *ngFor="let city of allCities">{{city}}</option>
+                    </select>
+                </div>
+                <div class="d-flex align-items-center ps-2 width33">
+                    <span class="colorWhite minWidth20 fontSize14">Year : </span>
+                    <select class="form-select" [(ngModel)]="selectedYear" aria-label="Default select example"
+                        (change)="onChangeYear($event)">
+                        <option [value]="year" *ngFor="let year of selectedCitiyYears">{{year}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="">
+
+            <div class="d-flex p-4 rounded-bottom cardStyleActive">
+                <div class="col-12 border rounded pr-2 cardStyle">
+                    <div id="chartdiv" style="width: 100%;height: 33.4rem"></div>
+                </div>
+                <div class="p-2"></div>
+            </div>
+        </div>
+    </div>
+</div>

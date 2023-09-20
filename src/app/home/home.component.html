@@ -1,0 +1,98 @@
+<div class="container-fluid p-0 layout">
+  <div class="card-header border-bottom d-flex align-items-center justify-content-between p-2 navBorder">
+    <img src="assets/Phase2-logo.svg" alt="logo.svg" class="logo">
+    <div class="btn-group btn-group-sm border p-1" role="group">
+      <button (click)="switchToInput()" type="button" class="btn toggleBtn"
+        [ngClass]="{'btn-active': isInput}">INPUT</button>
+      <button (click)="switchToOutput()" type="button" class="btn toggleBtn"
+        [ngClass]="{'btn-active': !isInput}">OUTPUT</button>
+    </div>
+    <button class="btn exerciseBtn" (click)="exercise2w()">Exercise 2</button>
+  </div>
+
+  <div *ngIf="isInput" class="card card-header d-flex justify-content-start p-0 chartDiv">
+    <app-bar-chart></app-bar-chart>
+  </div>
+
+
+
+  <div *ngIf="!isInput" class="card card-header d-flex justify-content-start p-0 outputDiv">
+    <div class="card-body">
+      <div class="card text-center border-0 p-2 outputSubDiv">
+        <div class="card-header d-flex align-items-center outputHeaderBackground">
+          <div class="outputGraphHeader">Global Refining Capacity</div>
+        </div>
+        <div class="">
+          <div class="d-flex p-4 rounded-bottom outputChartDiv">
+            <div class="col-9 border rounded pr-2 section">
+              <app-line-chart></app-line-chart>
+            </div>
+            <div class="p-2"></div>
+            <div class="col-3 tableDiv">
+              <table class="table border rounded tableColor">
+
+                <thead>
+                  <tr class="flex bg-transparent">
+                    <th scope="col" class="bg-transparent fontSize14 tableHeaderText">Configuration</th>
+                    <th scope="col" class="bg-transparent fontSize14 tableHeaderText">Capacity</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-transparent" st>
+                  <tr *ngFor="let data of globalCapacity">
+                    <td class="fontSize12 tableContentText">{{data.Configuration}}
+                    </td>
+                    <td class="fontSize12 tableContentText">{{data.CAP}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card rangeSection">
+        <div class="card-header d-flex align-items-center rangeSectionHead">
+          <div class="rangeSectionSubHead">Composition limits for Assets </div>
+        </div>
+        <div class="card-body border rounded-bottom selectConfigText">
+          <div class="d-flex justify-content-center align-items-center pb-3 w-30">
+            <span class="me-3">Select Configuration </span>
+            <select class="form-select" [(ngModel)]="selected" name="status" placeholder="select"
+              (ngModelChange)="selectConfig()" style="width: 40%;display: inline;">
+              <option *ngFor="let key of keysOf" [ngValue]="key">{{key}}</option>
+            </select>
+          </div>
+          <div class="wrapper feedText">
+            <div *ngFor="let data of configSelectedData;let i = index;">
+              <div class="row my-2 d-flex justify-content-center">
+                <div class="col-5 d-flex justify-content-center">Feed: {{data.Feed}}</div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-2 p-0 d-flex justify-content-end"><span>{{data.min_comp}}</span></div>
+                <div class="col-8 d-flex align-items-center"><input type="range" id="rangeInput" name="rangeInput"
+                    oninput="amount.value=rangeInput.value" class="maxCompo" [min]="data.min_comp" [max]="data.max_comp"
+                    [value]="data.averageValue" step="0.1" disabled></div>
+                <div class="col-2 p-0"><span>{{data.max_comp}}</span></div>
+              </div>
+              <div class="col d-flex justify-content-center">{{data.averageValue}} avg</div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isloading">
+    <div class="spinner-border loader1" role="status">
+    </div>
+    <div class="loader2">
+    </div>
+  </div>
+
+  <footer class="d-flex align-items-center justify-content-center footer">By Ajapro AI Technologies Pvt Ltd.</footer>
+</div>
